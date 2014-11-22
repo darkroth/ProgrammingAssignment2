@@ -1,7 +1,7 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The functions below create a matrix-like object that can store its own inverse
+## in order to avoid costly computations
 
-## Write a short comment describing this function
+## Returns "matrix" object with cacheable inverse
 
 makeCacheMatrix <- function(mtx = matrix()) {
   ##cached version of matrix Inverse
@@ -28,9 +28,9 @@ makeCacheMatrix <- function(mtx = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## Returns a cached version of inverse if availabe, else calculates anew
 
-cacheSolve <- function(inMatrix) {
+cacheSolve <- function(inMatrix, ...) {
   ## Return a matrix that is the inverse of 'x'
   ## Does not use local variables, only functions of inMatrix 
   if(!is.null(inMatrix$getInv())) {
