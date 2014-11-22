@@ -3,22 +3,42 @@
 
 ## Write a short comment describing this function
 
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix <- function(mtx = matrix()) {
+  ##cached version of matrix Inverse
+  cachedInv <- NULL
+  
+  ##sub-function to store matrix
+  set <- function(y) { 
+    mtx <<- y
+    cachedInv <<- NULL
+  }
+  ##sub-function to return matrix
+  get <- function() mtx
+  ##sub-function to set inverse
+  setInv <- function(y) {
+    cachedInv <<- y
+  }
+  ##sub-function to return inverse
+  getInv <- function() cachedInv
+  ##list of sub-functions
+  list(get = get,
+       set = set,
+       setInv = setInv,
+       getInv = getInv)
 }
 
 
 ## Write a short comment describing this function
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-  m <- x$getmean()
-  if(!is.null(m)) {
+cacheSolve <- function(inMatrix) {
+  ## Return a matrix that is the inverse of 'x'
+  ## Does not use local variables, only functions of inMatrix 
+  if(!is.null(inMatrix$getInv())) {
     message("getting cached data")
-    return(m)
+    return(inMatrix$getInv())
   }
-  data <- x$get()
-  m <- mean(data, ...)
-  x$setmean(m)
-  m 
+  ##store inverse of matrix
+  inMatrix$setInv(solve(inMatrix$get()))
+  ##return inverse of matrix
+  inMatrix$getInv()
 }
